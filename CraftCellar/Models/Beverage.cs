@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace CraftCellar.Models
 {
     public class Beverage
@@ -15,6 +16,7 @@ namespace CraftCellar.Models
 
         public string Type { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         public double AlcoholContent { get; set; }
