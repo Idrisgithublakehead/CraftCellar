@@ -1,15 +1,18 @@
 ﻿# CraftCellar
 
-CraftCellar is an ASP.NET Core MVC web application designed to manage breweries and their beverages.
+CraftCellar is an ASP.NET Core MVC web application that manages breweries and beverages.
 
-## Features #new project, idris zahir, craftcellar, assigment 1
-- Manage Breweries
-- Manage Beverages
+The application allows users to perform CRUD operations (Create, Read, Update, Delete) using SQL Server and Entity Framework Core.
+
+## Features
+- Manage breweries
+- Manage beverages
 - One-to-many relationship between Brewery and Beverage
-- Authentication using Individual User Accounts
+- Razor Views with full CRUD functionality
 
-## Technology Used
+## Technologies Used
 - ASP.NET Core MVC
 - C#
 - Entity Framework Core
 - SQL Server
+- Razor Views
