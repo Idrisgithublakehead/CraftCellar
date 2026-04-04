@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CraftCellar.Data;
 using CraftCellar.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CraftCellar.Controllers
 {
@@ -19,14 +20,13 @@ namespace CraftCellar.Controllers
             _context = context;
         }
 
-        // GET: Beverages
+        // this is for the get  Beverages action
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Beverages.Include(b => b.Brewery);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Beverages/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,7 +45,10 @@ namespace CraftCellar.Controllers
             return View(beverage);
         }
 
-        // GET: Beverages/Create
+
+        // now to actually authorize and allow for each edit we need to add [authorize] infront of each get action
+        // anither get action but for create . Beverages/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["BreweryId"] = new SelectList(_context.Breweries, "BreweryId", "Name");
@@ -53,10 +56,11 @@ namespace CraftCellar.Controllers
         }
 
         // POST: Beverages/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // 
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("BeverageId,Name,Type,Price,AlcoholContent,BreweryId")] Beverage beverage)
         {
             if (ModelState.IsValid)
@@ -69,7 +73,8 @@ namespace CraftCellar.Controllers
             return View(beverage);
         }
 
-        // GET: Beverages/Edit/5
+        //  here is the edit /Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,11 +91,10 @@ namespace CraftCellar.Controllers
             return View(beverage);
         }
 
-        // POST: Beverages/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("BeverageId,Name,Type,Price,AlcoholContent,BreweryId")] Beverage beverage)
         {
             if (id != beverage.BeverageId)
@@ -123,6 +127,7 @@ namespace CraftCellar.Controllers
         }
 
         // GET: Beverages/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,9 +146,10 @@ namespace CraftCellar.Controllers
             return View(beverage);
         }
 
-        // POST: Beverages/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var beverage = await _context.Beverages.FindAsync(id);

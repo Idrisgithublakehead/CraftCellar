@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CraftCellar.Data;
 using CraftCellar.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CraftCellar.Controllers
 {
@@ -19,7 +20,7 @@ namespace CraftCellar.Controllers
             _context = context;
         }
 
-        // GET: Breweries
+        
         public async Task<IActionResult> Index()
         {
             return View(await _context.Breweries.ToListAsync());
@@ -44,16 +45,15 @@ namespace CraftCellar.Controllers
         }
 
         // GET: Breweries/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Breweries/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // authorize a get action for it to work
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("BreweryId,Name,YearFounded,Location")] Brewery brewery)
         {
             if (ModelState.IsValid)
@@ -66,6 +66,7 @@ namespace CraftCellar.Controllers
         }
 
         // GET: Breweries/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,11 +82,11 @@ namespace CraftCellar.Controllers
             return View(brewery);
         }
 
-        // POST: Breweries/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Breweries/Edit/5, now again we need to allow for authorizeation so we add a [authorize]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("BreweryId,Name,YearFounded,Location")] Brewery brewery)
         {
             if (id != brewery.BreweryId)
@@ -116,7 +117,8 @@ namespace CraftCellar.Controllers
             return View(brewery);
         }
 
-        // GET: Breweries/Delete/5
+        // another get action for delete Breweries/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +139,7 @@ namespace CraftCellar.Controllers
         // POST: Breweries/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var brewery = await _context.Breweries.FindAsync(id);
