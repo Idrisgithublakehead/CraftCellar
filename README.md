@@ -2,6 +2,12 @@
 
 ## 📌 Overview
 CraftCellar is a web application built using ASP.NET Core MVC that allows users to manage breweries and beverages. It includes full CRUD functionality and secure user authentication with Google login integration.
+\\
+
+
+LIVE SERVER LINK BELOW
+
+http://craftcellar-idris.runasp.net/
 
 ---
 
@@ -17,8 +23,7 @@ CraftCellar is a web application built using ASP.NET Core MVC that allows users 
 
 ---
 
-## 🌐 Live Site
-http://craftcellar-idris.runasp.net/
+
 
 ---
 
