@@ -6,9 +6,12 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -49,9 +52,14 @@
                 @Html.DisplayFor(modelItem => item.Brewery.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BeverageId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BeverageId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BeverageId">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.BeverageId">Details</a>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <text> | </text>
+                        <a asp-action="Edit" asp-route-id="@item.BeverageId">Edit</a>
+                        <text> | </text>
+                        <a asp-action="Delete" asp-route-id="@item.BeverageId">Delete</a>
+                    }
             </td>
         </tr>
 }
